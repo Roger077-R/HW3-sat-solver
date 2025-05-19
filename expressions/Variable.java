@@ -24,6 +24,15 @@ class Variable implements Expression {
      */
     Variable(String var) {
         //TODO: implement preconditions with exceptions
+        if (var == null) {
+            throw new IllegalArgumentException("var is null");
+        }
+        if (var.isEmpty()) {
+            throw new IllegalArgumentException("var is empty");
+        }
+        if (!checkFormat(var)) {
+            throw new IllegalArgumentException("var has an invalid format or value");
+        }
         this.var = var;
     }
 
@@ -37,8 +46,24 @@ class Variable implements Expression {
      * </ul>
      */
     static boolean checkFormat(String var) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (var == null) {
+            return false;
+        }
+        if (var.isEmpty()) {
+            return false;
+        }
+        if (!Character.isLetter(var.charAt(0))) {
+            return false;
+        }
+        for (int i = 1; i < var.length(); i++) {
+            char c = var.charAt(i);
+            if (!Character.isLetter(c) && !Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
+    
 
     @Override
     public boolean evaluate(Interpretation interpretation) {
