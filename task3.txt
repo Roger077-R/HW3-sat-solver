@@ -1,0 +1,1 @@
+Expression is not a functionalInterface because it has two abstract methods.That is evaluate() and variables()
