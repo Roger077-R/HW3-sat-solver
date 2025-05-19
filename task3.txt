@@ -1,1 +1,1 @@
-Expression is not a functionalInterface because it has two abstract methods.That is evaluate() and variables()
+`Expression` is not a `FunctionalInterface` because it has two abstract methods, which are `evaluate()` and `variables()`.
