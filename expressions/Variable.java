@@ -23,7 +23,6 @@ class Variable implements Expression {
      * </ul>
      */
     Variable(String var) {
-        //TODO: implement preconditions with exceptions
         if (var == null) {
             throw new IllegalArgumentException("var is null");
         }
@@ -67,14 +66,18 @@ class Variable implements Expression {
 
     @Override
     public boolean evaluate(Interpretation interpretation) {
-        //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        if (interpretation == null) {
+            throw new IllegalArgumentException("interpretation cannot be null");
+        }
+        if (!interpretation.exists(this.var)) {
+            throw new IllegalArgumentException("variable " + this.var + " does not exist in interpretation");
+        }
+        return interpretation.valueOf(this.var);
     }
 
     @Override
     public Set<String> variables() {
-        //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'getAllVariables'");
+        return Set.of(this.var);
     }
     
 }
