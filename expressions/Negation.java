@@ -21,14 +21,16 @@ class Negation implements Expression {
 
     @Override
     public boolean evaluate(Interpretation interpretation) {
-        //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        if(interpretation == null){
+            throw new IllegalArgumentException("interpretation is null");
+        }
+        return !this.expression.evaluate(interpretation);
     }
 
     @Override
     public Set<String> variables() {
         //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'getAllVariables'");
+        return this.expression.variables();
     }
 
 }

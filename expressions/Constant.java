@@ -20,14 +20,17 @@ class Constant implements Expression {
 
     @Override
     public boolean evaluate(Interpretation interpretation) {
-        //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        if (interpretation == null) {
+            throw new IllegalArgumentException("interpretation is null");
+        }
+        //We don't need to check if the interpretation is null because the constant is a boolean value.Because it's a constant.
+        return this.value;
     }
 
     @Override
     public Set<String> variables() {
         //TODO: complete implementation with necessary precondition checks
-        throw new UnsupportedOperationException("Unimplemented method 'getAllVariables'");
+        return Set.of();
     }
     
 }
