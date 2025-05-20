@@ -65,4 +65,8 @@ class BinaryExpression implements Expression {
         return Stream.concat(stream1, stream2).collect(Collectors.toSet());
     }
     
+    @Override
+    public String toString() {
+        return a.toString() + " " + op.toString().toLowerCase() + " " + b.toString();
+    }
 }

@@ -36,4 +36,8 @@ class Negation implements Expression {
         return this.expression.variables();
     }
 
+    @Override
+    public String toString() {
+        return "(not " + expression.toString() + ")";
+    }
 }

@@ -1,5 +1,6 @@
 package expressions;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
@@ -159,4 +160,23 @@ public class Interpretation implements Cloneable {
         return clone;
     }
     
+    @Override
+    public String toString() {
+        ArrayList<String> singleVariableInterpretation = new ArrayList<>();
+        int maxWidth = 0;
+
+        for(Map.Entry<String, Boolean> entry : interpretation.entrySet()) {
+            String s;
+            if (entry.getValue()) {
+                s = entry.getKey() + ": True  ";
+            } else {
+                s = entry.getKey() + ": False ";
+            }
+
+            maxWidth = Math.max(maxWidth, s.length());
+            singleVariableInterpretation.add(s);
+        }
+
+        return String.join("| ", singleVariableInterpretation);
+    }
 }

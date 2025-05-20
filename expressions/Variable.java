@@ -80,4 +80,8 @@ class Variable implements Expression {
         return Set.of(this.var);
     }
     
+    @Override
+    public String toString() {
+        return var;
+    }
 }

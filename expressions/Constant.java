@@ -33,4 +33,8 @@ class Constant implements Expression {
         return Set.of();
     }
     
+    @Override
+    public String toString() {
+        return value ? "True" : "False";
+    }
 }
