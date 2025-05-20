@@ -3,6 +3,8 @@ package solver;
 import expressions.Expression;
 import expressions.Interpretation;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 /**
@@ -56,7 +58,7 @@ public class SatSolver {
         }
         String var = variables.get(index);
         interpretation.add(var, true);
-        if (checkAllCasesForIsTautology(expression, variables, index + 1, interpretation)){
+        if (!checkAllCasesForIsTautology(expression, variables, index + 1, interpretation)){
             return false;
         }
         interpretation.add(var, false);
@@ -142,7 +144,8 @@ public class SatSolver {
      * @return all variable names in an expression
      */
     public static Set<String> getAllVariables(Expression expression) {
-        throw new UnsupportedOperationException("To be implemented");
+        
+        return expression.variables();
     }
 
     /**
@@ -151,7 +154,25 @@ public class SatSolver {
      * @return all possible interpretations for {@code expression}
      */
     public static Set<Interpretation> getAllInterpretations(Expression expression) {
-        throw new UnsupportedOperationException("To be implemented");
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
+        int n = expression.variables().size();
+        int totalPossibilities = 1 << n;
+        Set<String> variables = expression.variables();
+        Set<Interpretation> result = new HashSet<>();
+
+        for (int pos = 0; pos < totalPossibilities; pos++) {
+            Interpretation interp = new Interpretation();
+            Iterator<String> it = variables.iterator();
+            for (int i = 0; i < n; i++) {
+                boolean TFvalue = ((pos >> i) & 1) == 1;
+                String var = it.next();
+                interp.add(var, TFvalue);
+            }
+            result.add(interp);
+        }
+        return result;
     }
     
 }
