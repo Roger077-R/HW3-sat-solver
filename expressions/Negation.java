@@ -32,7 +32,6 @@ class Negation implements Expression {
 
     @Override
     public Set<String> variables() {
-        //TODO: complete implementation with necessary precondition checks
         return this.expression.variables();
     }
 

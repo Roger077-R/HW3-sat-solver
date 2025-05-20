@@ -92,7 +92,6 @@ public class Interpretation implements Cloneable {
             throw new IllegalArgumentException("var has an invalid format or value");
         }
         
-        //TODO: implement preconditions with exceptions
         interpretation.put(var, Boolean.valueOf(value));
     }
 
@@ -108,7 +107,6 @@ public class Interpretation implements Cloneable {
      * </ul>
      */
     public boolean exists(String var) {
-        //TODO: implement preconditions with exceptions
         if (var == null) {
             throw new IllegalArgumentException("var is null");
         }
@@ -147,7 +145,6 @@ public class Interpretation implements Cloneable {
             throw new IllegalArgumentException("var does not exist in this interpretation");
         }
         
-        //TODO: implement preconditions with exceptions
         return interpretation.get(var);
     }
 

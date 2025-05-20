@@ -29,7 +29,6 @@ class Constant implements Expression {
 
     @Override
     public Set<String> variables() {
-        //TODO: complete implementation with necessary precondition checks
         return Set.of();
     }
     
