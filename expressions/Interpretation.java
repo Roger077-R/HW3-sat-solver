@@ -1,8 +1,8 @@
 package expressions;
 
 import java.util.BitSet;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -38,9 +38,34 @@ public class Interpretation implements Cloneable {
      * {@code v} at {@code variables.get(i)} will be mapped to boolean value {@code booleanValues.get(i)}
      */
     public Interpretation(List<String> variables, BitSet booleanValues) {
-        //TODO: implement preconditions with exceptions
-        //TODO: implement constructor
-        throw new UnsupportedOperationException("To be implemented");
+        if (variables == null) {
+            throw new IllegalArgumentException("variables is null");
+        }
+        if (booleanValues == null) {
+            throw new IllegalArgumentException("booleanValues is null");
+        }
+        if (variables.size() != booleanValues.size()) {
+            throw new IllegalArgumentException("variables and booleanValues have different sizes");
+        }
+
+        this.interpretation = new TreeMap<>((String a, String b) -> {return a.compareTo(b);});
+
+        for (int i = 0; i < variables.size(); i++) {
+            String var = variables.get(i);
+            if (var == null) {
+                throw new IllegalArgumentException("var is null");
+            }
+            if (var.isEmpty()) {
+                throw new IllegalArgumentException("var is empty");
+            }
+            if (!Variable.checkFormat(var)) {
+                throw new IllegalArgumentException("var has an invalid format or value");
+            }
+            if (interpretation.containsKey(var)) {
+                throw new IllegalArgumentException("var is repeated");
+            }
+            interpretation.put(var, Boolean.valueOf(booleanValues.get(i)));
+        }
     }
 
     /**
@@ -56,6 +81,16 @@ public class Interpretation implements Cloneable {
      * </ul>
      */
     public void add(String var, boolean value) {
+        if (var == null) {
+            throw new IllegalArgumentException("var is null");
+        }
+        if (var.isEmpty()) {
+            throw new IllegalArgumentException("var is empty");
+        }
+        if (!Variable.checkFormat(var)) {
+            throw new IllegalArgumentException("var has an invalid format or value");
+        }
+        
         //TODO: implement preconditions with exceptions
         interpretation.put(var, Boolean.valueOf(value));
     }
@@ -73,6 +108,15 @@ public class Interpretation implements Cloneable {
      */
     public boolean exists(String var) {
         //TODO: implement preconditions with exceptions
+        if (var == null) {
+            throw new IllegalArgumentException("var is null");
+        }
+        if (var.isEmpty()) {
+            throw new IllegalArgumentException("var is empty");
+        }
+        if (!Variable.checkFormat(var)) {
+            throw new IllegalArgumentException("var has an invalid format or value");
+        }
         return interpretation.containsKey(var);
     }
 
@@ -89,6 +133,19 @@ public class Interpretation implements Cloneable {
      * @throws IllegalArgumentException if {@code var} doesn't exist in this interpretation
      */
     public boolean valueOf(String var) {
+        if (var == null) {
+            throw new IllegalArgumentException("var is null");
+        }
+        if (var.isEmpty()) {
+            throw new IllegalArgumentException("var is empty");
+        }
+        if (!Variable.checkFormat(var)) {
+            throw new IllegalArgumentException("var has an invalid format or value");
+        }
+        if (!interpretation.containsKey(var)) {
+            throw new IllegalArgumentException("var does not exist in this interpretation");
+        }
+        
         //TODO: implement preconditions with exceptions
         return interpretation.get(var);
     }
