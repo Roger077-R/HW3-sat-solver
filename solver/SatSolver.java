@@ -2,11 +2,11 @@ package solver;
 
 import expressions.Expression;
 import expressions.Interpretation;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 /**
  * A class representing a sat solver.
  * @version 0.1
@@ -23,51 +23,12 @@ public class SatSolver {
         if (expression == null) {
             throw new IllegalArgumentException("expression is null");
         }
-        List<String> variables = new ArrayList<>(expression.variables());
-        return checkAllCasesForIsTautology(expression, variables, 0, new Interpretation());
-    }
 
-    /**
-     * 
-     * @param expression
-     * @param variables
-     * @param index
-     * @param interpretation
-     * @return {@code true} iff {@code expression.evaluate(interpretation)}
-     * @throws IllegalArgumentException if {@code expression} is {@code null}
-     * @throws IllegalArgumentException if {@code variables} is {@code null}
-     * @throws IllegalArgumentException if {@code index} is out of bounds
-     * @throws IllegalArgumentException if {@code interpretation} is {@code null}
-     */
-    private static boolean checkAllCasesForIsTautology(Expression expression, List<String> variables, int index, Interpretation interpretation) {
-        if(expression == null) {
-            throw new IllegalArgumentException("expression is null");
-        }
-        if(variables == null) {
-            throw new IllegalArgumentException("variables is null");
-        }
-        if(index < 0 || index > variables.size()) {
-            throw new IllegalArgumentException("index is out of bounds");
-        }
-        if(interpretation == null) {
-            throw new IllegalArgumentException("interpretation is null");
-        }
-        
-        if (index == variables.size()) {
-            return expression.evaluate(interpretation);
-        }
-        String var = variables.get(index);
-        interpretation.add(var, true);
-        if (!checkAllCasesForIsTautology(expression, variables, index + 1, interpretation)){
-            return false;
-        }
-        interpretation.add(var, false);
-        if (!checkAllCasesForIsTautology(expression, variables, index + 1, interpretation)) {
-            return false;
-        }
-        return true;
+        return getAllInterpretations(expression)
+            .stream()
+            .parallel()
+            .allMatch(interp -> expression.evaluate(interp));
     }
-
 
     /**
      * Checks if an expression is a contradiction, i.e.: it is false under all interpretations
@@ -78,39 +39,12 @@ public class SatSolver {
         if (expression == null) {
             throw new IllegalArgumentException("expression is null");
         }
-        List<String> variables = new ArrayList<>(expression.variables());
-        return !checkAllCasesForIsContradiction(expression, variables, 0, new Interpretation());
-    }
 
-    private static boolean checkAllCasesForIsContradiction(Expression expression, List<String> variables, int index, Interpretation interpretation) {
-        if(expression == null) {
-            throw new IllegalArgumentException("expression is null");
-        }
-        if(variables == null) {
-            throw new IllegalArgumentException("variables is null");
-        }
-        if(index < 0 || index > variables.size()) {
-            throw new IllegalArgumentException("index is out of bounds");
-        }
-        if(interpretation == null) {
-            throw new IllegalArgumentException("interpretation is null");
-        }
-        
-        if (index == variables.size()) {
-            return expression.evaluate(interpretation);
-        }
-        String var = variables.get(index);
-        interpretation.add(var, true);
-        if (checkAllCasesForIsContradiction(expression, variables, index + 1, interpretation)){
-            return true;
-        }
-        interpretation.add(var, false);
-        if (checkAllCasesForIsContradiction(expression, variables, index + 1, interpretation)) {
-            return true;
-        }
-        return false;
+        return getAllInterpretations(expression)
+            .stream()
+            .parallel()
+            .allMatch(interp -> !expression.evaluate(interp));
     }
-
 
     /**
      * Checks if an expression is satisfiable, i.e.: it is true under at least one interpretation
@@ -118,7 +52,14 @@ public class SatSolver {
      * @return {@code true} iff {@code exists interpretation i : expression.evaluate(i)}
      */
     public static boolean isSatisfiable(Expression expression) {
-        throw new UnsupportedOperationException("To be implemented");
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
+
+        return getAllInterpretations(expression)
+            .stream()
+            .parallel()
+            .anyMatch(interp -> expression.evaluate(interp));
     }
 
     /**
@@ -127,7 +68,15 @@ public class SatSolver {
      * @return {@code l : all i in l : expression.evaluate(i)}
      */
     public static List<Interpretation> allSatisfiableInterpretations(Expression expression) {
-        throw new UnsupportedOperationException("To be implemented");
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
+
+        return getAllInterpretations(expression)
+            .stream()
+            .parallel()
+            .filter(interp -> expression.evaluate(interp))
+            .collect(Collectors.toList());
     }
 
     /**
@@ -136,7 +85,15 @@ public class SatSolver {
      * @return {@code l : all i in l : not expression.evaluate(i)}
      */
     public static List<Interpretation> allUnsatisfiableInterpretations(Expression expression) {
-        throw new UnsupportedOperationException("To be implemented");
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
+
+        return getAllInterpretations(expression)
+            .stream()
+            .parallel()
+            .filter(interp -> !expression.evaluate(interp))
+            .collect(Collectors.toList());
     }
 
     /**
@@ -174,5 +131,5 @@ public class SatSolver {
         }
         return result;
     }
-    
+
 }
