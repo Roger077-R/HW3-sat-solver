@@ -16,6 +16,9 @@ class Negation implements Expression {
      * @throws IllegalArgumentException if {@code expression} is {@code null}
      */
     Negation(Expression expression) {
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
         this.expression = expression;
     }
 
