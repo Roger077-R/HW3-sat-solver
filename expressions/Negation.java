@@ -17,7 +17,7 @@ class Negation implements Expression {
      */
     Negation(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
         this.expression = expression;
     }
@@ -25,7 +25,7 @@ class Negation implements Expression {
     @Override
     public boolean evaluate(Interpretation interpretation) {
         if(interpretation == null){
-            throw new IllegalArgumentException("interpretation is null");
+            throw new IllegalArgumentException("interpretation cannot be null");
         }
         return !this.expression.evaluate(interpretation);
     }

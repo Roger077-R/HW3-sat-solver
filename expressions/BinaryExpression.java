@@ -37,13 +37,13 @@ class BinaryExpression implements Expression {
     @Override
     public boolean evaluate(Interpretation interpretation) {
         if(interpretation == null){
-            throw new IllegalArgumentException("interpretation is null");
+            throw new IllegalArgumentException("interpretation cannot be null");
         }
         if(this.a == null || this.b == null){
-            throw new IllegalArgumentException("a or b is null");
+            throw new IllegalArgumentException("a and b cannot be null");
         }
         if(this.op == null){
-            throw new IllegalArgumentException("op is null");
+            throw new IllegalArgumentException("op canot be  null");
         }
         if(this.a.variables().isEmpty() && this.b.variables().isEmpty()){
             throw new IllegalArgumentException("a and b have no variables");
@@ -54,7 +54,7 @@ class BinaryExpression implements Expression {
             case OR:
                 return this.a.evaluate(interpretation) || this.b.evaluate(interpretation);
             default:
-                throw new IllegalArgumentException("op is not valid");
+                throw new IllegalArgumentException("Invalid op, expected AND or OR");
         }
     }
 

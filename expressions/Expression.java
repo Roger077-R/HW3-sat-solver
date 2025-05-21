@@ -43,6 +43,10 @@ public interface Expression {
      * @see {@link expressions.Variable}
      */
     public static Expression createVariableExpression(String var) {
+        if (var == null) {
+            throw new IllegalArgumentException("var cannot be null");
+        }
+
         if (!Variable.checkFormat(var)) {
             throw new IllegalArgumentException("var has an invalid format or value");
         }
@@ -57,7 +61,7 @@ public interface Expression {
      */
     public default Expression not(Expression expr) {
         if (expr == null) {
-            throw new IllegalArgumentException("expr is null");
+            throw new IllegalArgumentException("expr cannot be null");
         }
         return new Negation(expr);
     }
@@ -72,7 +76,7 @@ public interface Expression {
      */
     public default Expression and(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("left or right at least one is null");
+            throw new IllegalArgumentException("left and right cannot be null");
         }
         return new BinaryExpression(left, right, BinaryOperator.AND);
     }
@@ -87,7 +91,7 @@ public interface Expression {
      */
     public default Expression or(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("left or right at least one is null");
+            throw new IllegalArgumentException("left and right cannot be null");
         }
         return new BinaryExpression(left, right, BinaryOperator.OR);
     }
@@ -102,7 +106,7 @@ public interface Expression {
      */
     public default Expression implies(Expression antecedent, Expression consequent) {
         if (antecedent == null || consequent == null) {
-            throw new IllegalArgumentException("antecedent or consequent at least one is null");
+            throw new IllegalArgumentException("antecedent and consequent cannot be null");
         }
         return antecedent.not(antecedent).or(antecedent,consequent);
     }
@@ -117,7 +121,7 @@ public interface Expression {
      */
     public default Expression iff(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("left or right at least one is null");
+            throw new IllegalArgumentException("left and right cannot be null");
         }
         return this.and(right.implies(left, right), left.implies(right, left));
     }
@@ -132,7 +136,7 @@ public interface Expression {
      */
     public default Expression xor(Expression left, Expression right) {
         if (left == null || right == null) {
-            throw new IllegalArgumentException("left or right at least one is null");
+            throw new IllegalArgumentException("left and right cannot be null");
         }
         return or(left,right).and(left.not(left), right.not(right));
     }

@@ -133,10 +133,10 @@ public class Interpretation implements Cloneable {
      */
     public boolean valueOf(String var) {
         if (var == null) {
-            throw new IllegalArgumentException("var is null");
+            throw new IllegalArgumentException("var cannot be null");
         }
         if (var.isEmpty()) {
-            throw new IllegalArgumentException("var is empty");
+            throw new IllegalArgumentException("var cannot be empty");
         }
         if (!Variable.checkFormat(var)) {
             throw new IllegalArgumentException("var has an invalid format or value");

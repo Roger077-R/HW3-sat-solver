@@ -21,7 +21,7 @@ public class SatSolver {
      */
     public static boolean isTautology(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
 
         return getAllInterpretations(expression)
@@ -37,7 +37,7 @@ public class SatSolver {
      */
     public static boolean isContradiction(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
 
         return getAllInterpretations(expression)
@@ -53,7 +53,7 @@ public class SatSolver {
      */
     public static boolean isSatisfiable(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
 
         return getAllInterpretations(expression)
@@ -69,7 +69,7 @@ public class SatSolver {
      */
     public static List<Interpretation> allSatisfiableInterpretations(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
 
         return getAllInterpretations(expression)
@@ -86,7 +86,7 @@ public class SatSolver {
      */
     public static List<Interpretation> allUnsatisfiableInterpretations(Expression expression) {
         if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
+            throw new IllegalArgumentException("expression cannot be null");
         }
 
         return getAllInterpretations(expression)
@@ -101,7 +101,10 @@ public class SatSolver {
      * @return all variable names in an expression
      */
     public static Set<String> getAllVariables(Expression expression) {
-        
+        if (expression == null) {
+            throw new IllegalArgumentException("expression cannot be null");
+        }
+
         return expression.variables();
     }
 
@@ -114,6 +117,7 @@ public class SatSolver {
         if (expression == null) {
             throw new IllegalArgumentException("expression is null");
         }
+        
         int n = expression.variables().size();
         int totalPossibilities = 1 << n;
         Set<String> variables = expression.variables();
