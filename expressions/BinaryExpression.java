@@ -1,8 +1,8 @@
 package expressions;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 /**
  * Represents a binary boolean expression
  * @version 0.1
@@ -60,9 +60,10 @@ class BinaryExpression implements Expression {
 
     @Override
     public Set<String> variables() {
-        Stream<String> stream1 = this.a.variables().stream();
-        Stream<String> stream2 = this.b.variables().stream();
-        return Stream.concat(stream1, stream2).collect(Collectors.toSet());
+        return List.of(a.variables(), b.variables())
+            .stream()
+            .flatMap(s -> s.stream())
+            .collect(Collectors.toSet());
     }
     
     @Override
