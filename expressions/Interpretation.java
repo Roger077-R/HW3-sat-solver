@@ -45,7 +45,7 @@ public class Interpretation implements Cloneable {
         if (booleanValues == null) {
             throw new IllegalArgumentException("booleanValues is null");
         }
-        if (variables.size() != booleanValues.size()) {
+        if (variables.size() != booleanValues.length()) {
             throw new IllegalArgumentException("variables and booleanValues have different sizes");
         }
 
