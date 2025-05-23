@@ -19,6 +19,12 @@ class Constant implements Expression {
     }
 
     @Override
+    /**
+     * Evaluates this constant expression under a particular interpretation
+     * @param interpretation the interpretation to use (must not be null)
+     * @return the constant boolean value this expression represents
+     * @throws IllegalArgumentException if {@code interpretation} is {@code null}
+     */
     public boolean evaluate(Interpretation interpretation) {
         if (interpretation == null) {
             throw new IllegalArgumentException("interpretation cannot be null");
@@ -28,11 +34,17 @@ class Constant implements Expression {
     }
 
     @Override
+    /**
+     * @return an empty set since a constant expression contains no variables
+     */
     public Set<String> variables() {
         return Set.of();
     }
     
     @Override
+    /**
+     * @return "True" if this constant represents true, "False" otherwise
+     */
     public String toString() {
         return value ? "True" : "False";
     }

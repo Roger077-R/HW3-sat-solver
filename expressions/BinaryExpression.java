@@ -35,6 +35,15 @@ class BinaryExpression implements Expression {
     }
     
     @Override
+    /**
+     * Evaluates this binary expression under a particular interpretation
+     * @param interpretation the interpretation to use
+     * @return the result of applying the binary operator to the evaluation of both sub-expressions
+     * @throws IllegalArgumentException if {@code interpretation} is {@code null}
+     * @throws IllegalArgumentException if either sub-expression is {@code null}
+     * @throws IllegalArgumentException if the operator is {@code null}
+     * @throws IllegalArgumentException if both sub-expressions have no variables
+     */
     public boolean evaluate(Interpretation interpretation) {
         if(interpretation == null){
             throw new IllegalArgumentException("interpretation cannot be null");
@@ -59,6 +68,9 @@ class BinaryExpression implements Expression {
     }
 
     @Override
+    /**
+     * @return the union of all variables in both sub-expressions
+     */
     public Set<String> variables() {
         return List.of(a.variables(), b.variables())
             .stream()
@@ -67,6 +79,9 @@ class BinaryExpression implements Expression {
     }
     
     @Override
+    /**
+     * @return a string representation of this binary expression in the format "left op right"
+     */
     public String toString() {
         return a.toString() + " " + op.toString().toLowerCase() + " " + b.toString();
     }

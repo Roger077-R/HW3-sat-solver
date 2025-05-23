@@ -23,6 +23,12 @@ class Negation implements Expression {
     }
 
     @Override
+    /**
+     * Evaluates this negated expression under a particular interpretation
+     * @param interpretation the interpretation to use
+     * @return the logical negation of the evaluation of the sub-expression
+     * @throws IllegalArgumentException if {@code interpretation} is {@code null}
+     */
     public boolean evaluate(Interpretation interpretation) {
         if(interpretation == null){
             throw new IllegalArgumentException("interpretation cannot be null");
@@ -31,11 +37,17 @@ class Negation implements Expression {
     }
 
     @Override
+    /**
+     * @return the set of variables in the negated expression
+     */
     public Set<String> variables() {
         return this.expression.variables();
     }
 
     @Override
+    /**
+     * @return a string representation of this negation in the format "(not expr)"
+     */
     public String toString() {
         return "(not " + expression.toString() + ")";
     }
