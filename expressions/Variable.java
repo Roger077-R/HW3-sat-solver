@@ -33,7 +33,7 @@ class Variable implements Expression {
         if (var == null) {
             throw new IllegalArgumentException("var cannot be null");
         }
-        if (var.isBlank()) {
+        if (var.isEmpty()) {
             throw new IllegalArgumentException("var cannot be blank");
         }
         if (!checkFormat(var)) {
