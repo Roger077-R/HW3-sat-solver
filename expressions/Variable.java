@@ -6,6 +6,13 @@ import java.util.Set;
  * Represents a boolean variable.
  * The variable must follow the format {@code <letter>(<letter-or-number>)*},
  * i.e.: a letter followed by zero or more letters or numbers
+ * 
+ * Class invariants:
+ * <ul>
+ *  <li>var is not {@code null}</li>
+ *  <li>var is not blank</li>
+ * </ul>
+ * 
  * @version 0.1
  */
 class Variable implements Expression {
@@ -26,8 +33,8 @@ class Variable implements Expression {
         if (var == null) {
             throw new IllegalArgumentException("var cannot be null");
         }
-        if (var.isEmpty()) {
-            throw new IllegalArgumentException("var cannot be empty");
+        if (var.isBlank()) {
+            throw new IllegalArgumentException("var cannot be blank");
         }
         if (!checkFormat(var)) {
             throw new IllegalArgumentException("var has an invalid format or value");

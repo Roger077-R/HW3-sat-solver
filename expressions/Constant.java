@@ -4,6 +4,12 @@ import java.util.Set;
 
 /**
  * Represents a boolean value, i.e.: true, or false
+ * 
+ * Class invariants:
+ * <ul>
+ *  <li> value is not null</li>
+ * </ul>
+ * 
  * @version 0.1
  */
 class Constant implements Expression {

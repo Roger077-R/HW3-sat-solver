@@ -5,6 +5,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 /**
  * Represents a binary boolean expression
+ * 
+ * Class invariants:
+ * <ul>
+ *  <li> a and b are not null</li>
+ *  <li> op is not null</li>
+ * </ul>
+ * 
  * @version 0.1
  */
 class BinaryExpression implements Expression {
@@ -85,4 +92,6 @@ class BinaryExpression implements Expression {
     public String toString() {
         return a.toString() + " " + op.toString().toLowerCase() + " " + b.toString();
     }
+
+    public boolean repOk()
 }

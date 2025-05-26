@@ -4,6 +4,12 @@ import java.util.Set;
 
 /**
  * Represents a negated boolean expression
+ * 
+ * Class invariants:
+ * <ul>
+ *  <li> expression is not {@code null}</li>
+ * </ul>
+ * 
  * @version 0.1
  */
 class Negation implements Expression {

@@ -8,6 +8,15 @@ import java.util.TreeMap;
 
 /**
  * Represents an interpretation of a boolean expression
+ * 
+ * Class invariants:
+ * <ul>
+ *  <li> interpretation is not {@code null}</li>
+ *  <li> keys in interpretation are not {@code null} and are String</li>
+ *  <li> keys in interpretation are not empty</li>
+ *  <li> values in interpretation are not {@code null} and are Boolean</li>
+ * </ul>
+ * 
  */
 public class Interpretation implements Cloneable {
 
