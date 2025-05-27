@@ -26,6 +26,9 @@ class Negation implements Expression {
             throw new IllegalArgumentException("expression cannot be null");
         }
         this.expression = expression;
+        if (!repOk()) {
+            throw new IllegalStateException("Postcondition violated: representation invariant not maintained after construction");
+        }
     }
 
     @Override
@@ -56,5 +59,12 @@ class Negation implements Expression {
      */
     public String toString() {
         return "(not " + expression.toString() + ")";
+    }
+    /**
+     * Checks if the representation invariant is respected
+     * @return {@code true} if the representation invariant is respected, {@code false} otherwise
+     */
+    public boolean repOk(){
+        return this.expression != null;
     }
 }

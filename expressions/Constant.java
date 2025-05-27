@@ -22,6 +22,9 @@ class Constant implements Expression {
      */
     Constant(boolean value) {
         this.value = value;
+        if (!repOk()) {
+            throw new IllegalStateException("Postcondition violated: representation invariant not maintained after construction");
+        }
     }
 
     @Override
@@ -53,5 +56,13 @@ class Constant implements Expression {
      */
     public String toString() {
         return value ? "True" : "False";
+    }
+
+    /**
+     * Checks if the representation invariant is respected
+     * @return {@code true} if the representation invariant is respected,and it will always be true
+     */
+    public boolean repOk(){
+        return true;
     }
 }

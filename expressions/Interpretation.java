@@ -27,6 +27,9 @@ public class Interpretation implements Cloneable {
      */
     public Interpretation() {
         interpretation = new TreeMap<>((String a, String b) -> {return a.compareTo(b);});
+        if (!repOk()) {
+            throw new IllegalStateException("Failed to initialize interpretation map");
+        }
     }
 
     /**
@@ -60,21 +63,8 @@ public class Interpretation implements Cloneable {
 
         this.interpretation = new TreeMap<>((String a, String b) -> {return a.compareTo(b);});
 
-        for (int i = 0; i < variables.size(); i++) {
-            String var = variables.get(i);
-            if (var == null) {
-                throw new IllegalArgumentException("var is null");
-            }
-            if (var.isEmpty()) {
-                throw new IllegalArgumentException("var is empty");
-            }
-            if (!Variable.checkFormat(var)) {
-                throw new IllegalArgumentException("var has an invalid format or value");
-            }
-            if (interpretation.containsKey(var)) {
-                throw new IllegalArgumentException("var is repeated");
-            }
-            interpretation.put(var, Boolean.valueOf(booleanValues.get(i)));
+        if (!repOk()) {
+            throw new IllegalStateException("Failed to initialize interpretation map");
         }
     }
 
@@ -184,5 +174,27 @@ public class Interpretation implements Cloneable {
         }
 
         return String.join("| ", singleVariableInterpretation);
+    }
+   
+    public boolean repOk(){
+        if(this.interpretation == null){
+            return false;
+        }
+        for(Map.Entry<String, Boolean> entry : interpretation.entrySet()){
+            if(entry.getKey() == null || entry.getValue() == null){
+                return false;
+            }
+            if(entry.getKey().isEmpty()){
+                return false;
+            }
+            if(!Variable.checkFormat(entry.getKey())){
+                return false;
+            }
+            // 检查布尔值
+            if(!(entry.getValue() instanceof Boolean)){
+                return false;
+            }
+        }
+        return true;
     }
 }

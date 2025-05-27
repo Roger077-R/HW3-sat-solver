@@ -40,6 +40,9 @@ class Variable implements Expression {
             throw new IllegalArgumentException("var has an invalid format or value");
         }
         this.var = var;
+        if (!repOk()) {
+            throw new IllegalStateException("Postcondition violated: representation invariant not maintained after construction");
+        }
     }
 
     /* (non-javadoc)
@@ -90,5 +93,12 @@ class Variable implements Expression {
     @Override
     public String toString() {
         return var;
+    }
+    /**
+     * Checks if the representation invariant is respected
+     * @return {@code true} if the representation invariant is respected, {@code false} otherwise
+     */
+    public boolean repOk(){
+        return this.var != null && !this.var.isEmpty() && checkFormat(this.var);
     }
 }

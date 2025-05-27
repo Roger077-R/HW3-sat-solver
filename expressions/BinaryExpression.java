@@ -39,6 +39,9 @@ class BinaryExpression implements Expression {
         this.a = a;
         this.b = b;
         this.op = op;
+        if (!repOk()) {
+            throw new IllegalStateException("Postcondition violated: representation invariant not maintained after construction");
+        }
     }
     
     @Override
@@ -93,5 +96,11 @@ class BinaryExpression implements Expression {
         return a.toString() + " " + op.toString().toLowerCase() + " " + b.toString();
     }
 
-    public boolean repOk()
+    /**
+     * Checks if the representation invariant is respected
+     * @return {@code true} if the representation invariant is respected, {@code false} otherwise
+     */
+    public boolean repOk(){
+        return this.a != null && this.b != null && this.op != null;
+    }
 }
