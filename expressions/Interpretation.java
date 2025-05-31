@@ -57,9 +57,6 @@ public class Interpretation implements Cloneable {
         if (booleanValues == null) {
             throw new IllegalArgumentException("booleanValues is null");
         }
-        if (variables.size() != booleanValues.length()) {
-            throw new IllegalArgumentException("variables and booleanValues have different sizes");
-        }
 
         this.interpretation = new TreeMap<>((String a, String b) -> {return a.compareTo(b);});
 
