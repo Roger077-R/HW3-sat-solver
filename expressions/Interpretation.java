@@ -190,7 +190,6 @@ public class Interpretation implements Cloneable {
             if(!Variable.checkFormat(entry.getKey())){
                 return false;
             }
-            // 检查布尔值
             if(!(entry.getValue() instanceof Boolean)){
                 return false;
             }
