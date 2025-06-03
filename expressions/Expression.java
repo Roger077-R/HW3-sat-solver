@@ -108,7 +108,7 @@ public interface Expression {
         if (antecedent == null || consequent == null) {
             throw new IllegalArgumentException("antecedent and consequent cannot be null");
         }
-        return antecedent.not(antecedent).or(antecedent,consequent);
+        return antecedent.or(antecedent.not(antecedent),consequent);
     }
 
     /**
@@ -138,6 +138,10 @@ public interface Expression {
         if (left == null || right == null) {
             throw new IllegalArgumentException("left and right cannot be null");
         }
-        return or(left,right).and(left.not(left), right.not(right));
+
+        Expression notRight = left.and(left, right.not(right));
+        Expression notLeft = right.and(right, left.not(left));
+
+        return or(notLeft,notRight);
     }
 }
