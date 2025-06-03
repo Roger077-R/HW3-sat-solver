@@ -52,7 +52,6 @@ class BinaryExpression implements Expression {
      * @throws IllegalArgumentException if {@code interpretation} is {@code null}
      * @throws IllegalArgumentException if either sub-expression is {@code null}
      * @throws IllegalArgumentException if the operator is {@code null}
-     * @throws IllegalArgumentException if both sub-expressions have no variables
      */
     public boolean evaluate(Interpretation interpretation) {
         if(interpretation == null){
@@ -62,7 +61,7 @@ class BinaryExpression implements Expression {
             throw new IllegalArgumentException("a and b cannot be null");
         }
         if(this.op == null){
-            throw new IllegalArgumentException("op canot be null");
+            throw new IllegalArgumentException("op cannot be null");
         }
         switch (this.op) {
             case AND:

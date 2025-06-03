@@ -51,13 +51,16 @@ public class Interpretation implements Cloneable {
      */
     public Interpretation(List<String> variables, BitSet booleanValues) {
         if (variables == null) {
-            throw new IllegalArgumentException("variables is null");
+            throw new IllegalArgumentException("variables cannot be null");
         }
         if (booleanValues == null) {
-            throw new IllegalArgumentException("booleanValues is null");
+            throw new IllegalArgumentException("booleanValues cannot be null");
         }
 
         this.interpretation = new TreeMap<>((String a, String b) -> {return a.compareTo(b);});
+        for(int i = 0; i < variables.size(); i++) {
+            add(variables.get(i), booleanValues.get(i));
+        }
 
         if (!repOk()) {
             throw new IllegalStateException("Failed to initialize interpretation map");
