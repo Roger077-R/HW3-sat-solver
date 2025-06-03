@@ -38,7 +38,6 @@ class Constant implements Expression {
         if (interpretation == null) {
             throw new IllegalArgumentException("interpretation cannot be null");
         }
-        //We don't need to check if the interpretation is null because the constant is a boolean value.Because it's a constant.
         return this.value;
     }
 

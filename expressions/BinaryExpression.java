@@ -62,10 +62,7 @@ class BinaryExpression implements Expression {
             throw new IllegalArgumentException("a and b cannot be null");
         }
         if(this.op == null){
-            throw new IllegalArgumentException("op canot be  null");
-        }
-        if(this.a.variables().isEmpty() && this.b.variables().isEmpty()){
-            throw new IllegalArgumentException("a and b have no variables");
+            throw new IllegalArgumentException("op canot be null");
         }
         switch (this.op) {
             case AND:

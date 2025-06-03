@@ -38,7 +38,6 @@ public class Interpretation implements Cloneable {
      * @param booleanValues the boolean values for each variable in {@code variables} in the corresponding order.
      * @throws IllegalArgumentException if {@code variables} is {@code null}
      * @throws IllegalArgumentException if {@code booleanValues} is {@code null}
-     * @throws IllegalArgumentException if {@code variables.size() != booleanValues.size()}
      * @throws IllegalArgumentException if there is a variable in {@code variables} such that:
      * <ul>
      * <li>is {@code null}</li>
